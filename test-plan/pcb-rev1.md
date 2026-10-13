@@ -51,6 +51,16 @@ Record results in the table at the bottom and copy measurements into [hardware/r
 - **Measure:** the firmware's serial status line (per-block time and overrun count) for each model.
 - **Pass:** zero overruns over 5 minutes of playing.
 
+### T7. Polarity and latency
+- **Checks:** req 4 (audio feels real time to play through).
+- **Setup:** firmware in bypass (`0`) first, then each amp model. Scope channel 1 on the guitar input, channel 2 on
+  the headphone or line out.
+- **Input:** a sharp edge (muted strings, a tapped cable tip, or a square wave), not a sustained note.
+- **Measure:** time between the onsets, where each trace first leaves zero. Note whether the output is inverted.
+- **Expected:** output inverted (the headphone amp is an inverting stage); about 3 ms delay in bypass.
+  See [hardware/rev1.md](../hardware/rev1.md#audio-phase-and-latency).
+- **Pass:** delay below TBD ms.
+
 ## How this differs from the EXPO build
 - Bench supply instead of the battery and power board.
 - No touchscreen yet; models are switched over USB serial.
@@ -66,3 +76,4 @@ Record results in the table at the bottom and copy measurements into [hardware/r
 | T4 | | | |
 | T5 | | | |
 | T6 | | | |
+| T7 | 2026-10-13 | Output inverted; ~4.4 ms | Single guitar note, peaks matched after inverting one trace. Bypass onset retest pending |
