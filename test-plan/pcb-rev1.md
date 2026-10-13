@@ -51,6 +51,15 @@ Record results in the table at the bottom and copy measurements into [hardware/r
 - **Measure:** the firmware's serial status line (per-block time and overrun count) for each model.
 - **Pass:** zero overruns over 5 minutes of playing.
 
+### T7. Polarity and latency
+- **Checks:** req 4 (audio feels real time to play through).
+- **Setup:** firmware in bypass (`0`) first, then each amp model. Scope channel 1 on the guitar input, channel 2 on
+  the headphone or line out.
+- **Input:** a short impulse or a sharp edge, not a sustained note.
+- **Measure:** time from the impulse to the centre of the output's main peak, and whether that peak is inverted.
+- **Expected:** output inverted; about 3.3 ms delay. See [hardware/rev1.md](../hardware/rev1.md#audio-phase-and-latency).
+- **Pass:** delay below TBD ms.
+
 ## How this differs from the EXPO build
 - Bench supply instead of the battery and power board.
 - No touchscreen yet; models are switched over USB serial.
@@ -66,3 +75,4 @@ Record results in the table at the bottom and copy measurements into [hardware/r
 | T4 | | | |
 | T5 | | | |
 | T6 | | | |
+| T7 | 2026-10-13 | ~3.3 ms, inverted | Impulse on a Keysight DSO-X 3024G; amp model state not recorded. [Capture](../hardware/images/rev1-impulse-latency.png) |
