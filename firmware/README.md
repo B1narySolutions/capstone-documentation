@@ -8,6 +8,8 @@ build and flashing steps.
 - 48 kHz audio, 48-sample blocks, so each audio callback has a 1 ms budget.
 - Left input goes to both outputs. A fixed cabinet EQ follows the model (toggle with `C`).
 - Today, models are picked over USB serial: `0` bypass, `1` Fender, `2` Vox, `3` Marshall, `B` reboot to DFU.
+- Touchscreen link: not in the firmware yet. A compiled patch and the request are in the touchscreen repo;
+  see [touchscreen/seed-link.md](../touchscreen/seed-link.md).
 
 ## Gotchas
 - The model weights are T3K-licensed. Never commit `models/local/` or firmware binaries that contain them.

@@ -27,3 +27,4 @@ Keep it short: a few slides of bullet points is enough. Show it to the TA early 
 
 ## Plans
 - [pcb-rev1.md](pcb-rev1.md): rev 1 carrier board (draft)
+- [seed-link.md](seed-link.md): touchscreen to Seed link (draft)
