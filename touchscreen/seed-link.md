@@ -7,9 +7,12 @@ How the touchscreen controls the Seed. Full byte layouts: `docs/SEED_LINK_PROTOC
 - **Touchscreen side:** done, tested against two PC stand-ins for the Seed.
 - **Seed side:** not in [realtime-nam-seed3](https://github.com/B1narySolutions/realtime-nam-seed3) yet. Until it
   is, the Seed doesn't read its UART pins and the touchscreen says "Not connected".
-- **Request for Rocco:** `docs/SEED_FIRMWARE_REQUEST.md` with a ready patch, `docs/seed3-link.patch`. The patch
-  compiles and links against the Seed repo (230eb74, libDaisy cc146d5): flash use goes from 78.9 % to 85.2 %.
-  It hasn't run on a Seed yet.
+- **Request for Rocco:** `docs/SEED_FIRMWARE_REQUEST.md` with a ready patch, `docs/seed3-link.patch`, against the
+  Seed repo's `main` (c3abe82, with the volume and tone knobs). Flash use goes from 82.9 % to 89.4 %.
+- **It works on the real Seed** (2026-10-13): a test build of the Seed firmware plus the patch, on the team's Seed,
+  which gets its original firmware back after testing. Results below.
+- **libDaisy gotcha:** one UART line error (the touchscreen's boot message arrives as garbage) used to lock up the
+  Seed's main loop and USB. The patch turns the UART's line-error interrupts off; details in the request doc.
 
 ## Wiring
 3.3 V logic both sides, no level shifting. **Three wires only, boards powered off while wiring.** Set SW1 on the
@@ -46,12 +49,19 @@ touchscreen to UART2.
 | Seed's own receiver code vs the real touchscreen | 21 min, 252 of 252 snapshots confirmed, no link drops, errors only at connect | `seed_sim` on the Mac through the USB TO UART port (SW1 on UART1) |
 | SD profile upload | Marshall JCM800 G5 A2 uploaded, CRC verified by the receiver | Same setup |
 | Touchscreen with no Seed | "Not connected", 0 bytes received, 0 errors | Boot log and `DIAG` line |
-| Seed firmware + patch | Compiles and links, +8.2 KB flash | Arm GNU 15.3.rel2 on a copy of the Seed repo |
+| Seed firmware + patch | Compiles and links, +8.5 KB flash | Arm GNU 15.3.rel2 on a copy of the Seed repo (c3abe82) |
+| **Real Seed:** link up | HELLO `nam-a2`, 48000 Hz / 48, within about 1 s | Bare Seed wired to H3, `tools/lab_day.py` reading both consoles |
+| **Real Seed:** amp cards | 5 of 5 taps loaded the amp on the Seed | Seed console `>>> ... loaded` |
+| **Real Seed:** mute | Output meter to silence (-120 dBFS) while muted | Seed's METERS on the touchscreen |
+| **Real Seed:** readings | DSP 57.2 % on the touchscreen, 57 % on the Seed's console | Side by side in `lab_day.py` |
+| **Real Seed:** recovery | Seed reset and cable pulls recovered by themselves | Both consoles |
+| **Real Seed:** health | 0 link errors, 0 UART overruns, 0 audio overruns, ping 1.95 ms | `DIAG` line and the Seed's status line |
 
-Not tested yet: anything on the real Seed (wiring, sound of mute and volume, meters, DSP load with the link).
+Not tested yet: hearing mute and MASTER on headphones, meters while playing, SD profile upload (the Seed side isn't
+written), the carrier's J4 cable (tested on a bare Seed), and the patch merged into the Seed repo.
 
 ## Bring-up day
-1. Rocco flashes the Seed build with the link.
+1. Rocco merges the patch and flashes the Seed build with the link.
 2. Wire it (table above), SW1 on UART2, power on.
 3. Both USB cables into one computer, then `python tools/lab_day.py` from the touchscreen repo. It reads both
    consoles, sends nothing, and prints a live checklist with the next thing to check.

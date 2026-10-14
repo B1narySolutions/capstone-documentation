@@ -46,4 +46,8 @@ wires, SW1 on UART2, both USB cables in one computer running `tools/lab_day.py`.
 
 | Date | Test | Result | Notes | Who |
 | --- | --- | --- | --- | --- |
-| | | | | |
+| 2026-10-13 | L1 | Pass | Link up in about 1 s; 0 link errors over about 2 min. Bare Seed, test build (c3abe82 + patch) | Jacob |
+| 2026-10-13 | L2 | Partial | Amp switched on 5 of 5 taps; mute took the output meter to silence. Not listened to: no headphones or guitar on the bare Seed | Jacob |
+| 2026-10-13 | L3 | Pass (DSP, model) | DSP 57.2 % vs 57 % on the Seed console; meters show the real noise floor. Not yet with a guitar playing | Jacob |
+| 2026-10-13 | L4 | Not run | DSP 57 % with the link code vs 56 % without it; with vs without the cable not compared yet | Jacob |
+| 2026-10-13 | L5 | Pass | Seed reset: full resend at once. Cable pulls: link lost, then back, on both boards | Jacob |
