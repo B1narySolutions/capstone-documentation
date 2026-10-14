@@ -2,6 +2,14 @@
 
 Newest first. One entry per decision: what we decided, why, and the date.
 
+## 2026-10-14: Amp knobs are each amp's real controls, relative to the capture
+- **Decision:** the AMP's five knobs are the selected amp's own controls (Fender VOLUME BASS MIDDLE TREBLE BRIGHT,
+  Vox VOLUME BASS CUT TREBLE MASTER, Marshall PREAMP BASS MIDDLE TREBLE PRESENCE), with 50 = the capture as
+  recorded. Tone knobs model each amp's tone-stack circuit; volume drives the capture.
+- **Why:** a NAM capture is one fixed setting of the amp, so knobs can only move the sound relative to it; using
+  each amp's real controls and circuit gets closest to the real amp. It reuses the five existing link
+  parameters, so the protocol is unchanged. Details: `docs/AMP_CONTROLS.md` in the touchscreen repo.
+
 ## 2026-10-13: All audio processing stays on the Seed
 - **Decision:** every effect runs on the Seed. The touchscreen only sends settings and shows readings.
 - **Why:** the guitar signal only passes through the Seed. The touchscreen board has no audio input or output

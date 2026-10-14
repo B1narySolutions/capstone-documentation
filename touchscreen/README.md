@@ -20,8 +20,22 @@ Seed runs more effects.
 
 ## What the Seed acts on (2026-10-13)
 With the proposed Seed integration ([seed-link.md](seed-link.md)): master volume, mute, amp model, amp bypass.
+In the Mac simulator also the amp knobs (below).
 Everything else (gate, comp, EQ, drive, amp tone knobs, octave, chorus, phaser, tremolo, delay, reverb, cab
 cut/level) is sent but ignored by the Seed until someone writes those effects. The cabinet EQ is always on.
+
+## Amp controls (2026-10-14, Mac simulator)
+The AMP knobs are each amp's real controls, all at 50 (Fender Bright off) = the capture as recorded:
+Fender VOLUME BASS MIDDLE TREBLE BRIGHT, Vox VOLUME BASS CUT TREBLE MASTER, Marshall PREAMP BASS MIDDLE TREBLE
+PRESENCE. Volume/Preamp drives the capture harder; the tone knobs run each amp's tone-stack circuit (Fender,
+Marshall and Vox component values). Code: `seed-dsp/` in the touchscreen repo, details in its
+`docs/AMP_CONTROLS.md`. They change the sound in the Mac simulator; the Seed build doesn't run them yet.
+
+**Hearing it without the Seed's audio hardware:** `tools/amp_sim/run.sh` in the touchscreen repo runs the Seed's
+amp code (Rocco's NAM models and cab EQ, plus the amp controls) on a simulated guitar through the Mac's
+speakers, with the real touchscreen controlling it over the link (SW1 on UART1, USB TO UART cable). It prints
+every change the touchscreen sends, whether it changes the sound and by how much. `run.sh --demo` renders a
+before/after clip of every knob. Keep MASTER up (about 70): at 11 % it's nearly silent.
 
 ## Gotchas
 - **Startup hang:** opening the "USB" port within ~1.5 s of a reset can stop the board at "Enter psram timing
